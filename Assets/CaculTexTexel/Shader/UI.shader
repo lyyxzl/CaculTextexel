@@ -43,28 +43,34 @@ Shader "Hidden/CacTexUI"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
-                o.vertex.x = v.vertex.x;
+                half n = -1;
+                #if UNITY_UV_STARTS_AT_TOP
+                    n = 1;
+                #endif
 
-                
                 if (v.vertex.y > 0) {
-                    o.vertex.y = -0.5;
-                   
+                    o.vertex.y = 0.7 * n;
                 }
                 else {
-                    o.vertex.y = v.vertex.y;
-                    //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                    o.vertex.y = n;
                 }
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.vertex.z = v.vertex.z;
+                o.vertex.x = v.vertex.x;
+                o.vertex.z = n;
                 o.vertex.w = 1;
 
-                
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //  #if UNITY_UV_STARTS_AT_TOP
+                //     half s = 0.1;
+                // #else
+                //  half s = 0.5;
+                //     return half4(s,0,0,1);
+                //  #endif
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
                 //col.a = 0.1;
