@@ -116,6 +116,10 @@ namespace CaculTexTexel
 						foreach (var r in rs)
 						{
 							var mat = pool.Get();
+							if (r.sharedMaterial == null)
+                            {
+								continue;
+                            }
 							mat.mainTexture = r.sharedMaterial.mainTexture;
 
 							var scale = r.sharedMaterial.mainTextureScale;
