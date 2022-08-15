@@ -65,7 +65,7 @@ Shader "Hidden/cacultextexel"
 
             float Remap(float value, float oriMin, float oriMax, float dstMin, float dstMax)
             {
-                return (value - oriMin) / (oriMax - oriMin) * (dstMax - dstMin) + dstMin;
+                return saturate( (value - oriMin) / (oriMax - oriMin) * (dstMax - dstMin) + dstMin );
             }
 
             float4 frag(Varying IN) : SV_Target

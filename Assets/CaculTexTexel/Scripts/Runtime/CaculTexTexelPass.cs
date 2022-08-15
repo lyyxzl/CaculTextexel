@@ -107,6 +107,7 @@ namespace CaculTexTexel
 				
 				cmd.Blit(tempCopy, source);
 
+#if UNITY_EDITOR
 				var gos = Selection.gameObjects;
 				foreach (var go in gos)
 				{
@@ -133,7 +134,9 @@ namespace CaculTexTexel
 				}
 
 				cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, materialUI);
+#endif
 			}
+
 
 			context.ExecuteCommandBuffer(cmd);
 			CommandBufferPool.Release(cmd);
